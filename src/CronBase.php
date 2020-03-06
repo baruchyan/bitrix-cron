@@ -42,11 +42,6 @@ abstract class CronBase
     abstract public function run(): void;
 
     /**
-     * Получение имени сайта
-     * @return string
-     */
-
-    /**
      * Подключение модулей
      * @throws \Bitrix\Main\LoaderException
      */
@@ -68,12 +63,13 @@ abstract class CronBase
     {
         $context = Context::getCurrent();
         $request = $context->getRequest();
+        $server = $context->getServer();
 
         if(!empty($request->get('action')))
             return $request->get('action');
 
-        if(!empty($argv[1]))
-            return $argv[1];
+        if(!empty($server->get('argv')[1]))
+            return $server->get('argv')[1];
 
         return '';
     }
